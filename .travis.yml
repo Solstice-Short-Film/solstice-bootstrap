@@ -1,0 +1,28 @@
+language: python
+before_install:
+- pip install pycodestyle
+install:
+- pip install -r requirements.txt
+- python setup.py install
+script:
+- find . -name \*.py -exec pycodestyle --max-line-length=120 --ignore=E402 {} +
+- pytest --cov=solstice
+after_success:
+- coveralls
+- cd html && touch .nojekyll && cd ../
+deploy:
+  - provider: pages
+    skip_cleanup: true
+    github_token: "$GITHUB_TOKEN"
+    keep_history: true
+    local_dir: html
+    on:
+      branch: master
+  - provider: pypi
+    skip_cleanup: true
+    user: tpoveda
+    password:
+      secure: II/bLlmx5y1/plYcJcl/Uq1++i3kDRiENbCRz9CdYitDkHOPU48E/lnIVO9XBSYIEt9a1MUemefWyDs21q5RTYYlvCBTWOBximq1yyDwJPUGv6acDZs4otLDNyOz6cBfPYYmOYbnyOZBfwY6V+y57zrQzX3hHd9bHzNSR28fHlaGsf3X/81AJScegP7NavcJqDKndr0tGU4AuY/4j9FMQIcZClEsbVzzFtbPoCpF90bSWVXSEylsI3MfuiENxlH0hnhOAsbSdzAy17bhrWvGRasO+qzg8Nu0KJbtCiipFc13Zq+m6xSBlTfLlSZEtnb4jZGKDM7Ps0g0ueQoQmBhcu38VIVB6q3Y9sAS4XeC4oHgWmlOK6QH2JniBDFwojv9wh6lz6zzULXfh7YWIsXy4idYNoEtY3sjs95VImRCXyIFE4rLRSJv4jBdY5bOOvBKb3b/cmklmveWyNxZqraakYMLFXWn1PjlAiDHg+W4N6HH05yOF/3nXWIaDAHgm7L+r9OqPkZcPyqfeO+Gl3zU3BuIOnBMxGXVX0S8KfajBpTbpNHhdO7ehMfYs8x71dMt01tkrPMV9/9DACtuM1GdH/oMkXkuHQZ/VBtr5WlCIpapl+pw6H4/fVg5V4n9pVBmK7WyE6eyfWYQoEBubbo1M8OKUNGacY0v5SKTXZqeBgo=
+    on:
+      branch: master
+      tags: true
