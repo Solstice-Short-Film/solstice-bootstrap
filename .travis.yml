@@ -11,13 +11,6 @@ after_success:
 - coveralls
 - cd html && touch .nojekyll && cd ../
 deploy:
-  - provider: pages
-    skip_cleanup: true
-    github_token: "$GITHUB_TOKEN"
-    keep_history: true
-    local_dir: html
-    on:
-      branch: master
   - provider: pypi
     skip_cleanup: true
     user: tpoveda
