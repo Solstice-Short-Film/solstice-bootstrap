@@ -16,9 +16,9 @@ print('=' * 100)
 print('| Solstice Pipeline | > Loading Solstice Tools')
 
 try:
-    from solstice import core as solstice_core
+    import solstice.loader
     from maya import cmds
-    cmds.evalDeferred('solstice_core.init()')
+    cmds.evalDeferred('solstice.loader.init(import_libs=True)')
     print('| Solstice Pipeline | Solstice Tools loaded successfully!')
     print('=' * 100)
 except Exception as e:
