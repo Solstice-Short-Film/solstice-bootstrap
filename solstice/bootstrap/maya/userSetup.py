@@ -23,8 +23,8 @@ try:
     print('=' * 100)
 except Exception as e:
     try:
-        from solstice import core as solstice_core
-        solstice_core.init()
+        import solstice.loader
+        solstice.loader.init(import_libs=True)
         print('| Solstice Pipeline | Solstice Tools loaded successfully!')
         print('=' * 100)
     except Exception as e:
